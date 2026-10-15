@@ -5,15 +5,15 @@ import { ref } from 'vue';
 const loadError = ref('');
 const isReady = ref(false);
 const camera = new PerspectiveCamera(38, 1, 0.1, 50);
-camera.position.set(0.4, 0.45, 7.6);
-camera.lookAt(0, 0.2, 0);
+camera.position.set(0, 0.12, 7.6);
+camera.lookAt(0, 0.08, 0);
 
 useHead({
-  title: 'Industrial RoArm M2',
+  title: 'Robot',
   meta: [
     {
       name: 'description',
-      content: 'An interactive industrial RoArm M2 model rendered with TresJS.',
+      content: 'A Blender-built robot that follows your cursor with its head and neck.',
     },
   ],
 });
@@ -21,7 +21,7 @@ useHead({
 
 <template>
   <main class="ro-arm-page">
-    <h1 class="visually-hidden">Interactive RoArm M2 wireframe model</h1>
+    <h1 class="visually-hidden">Robot — move your pointer to turn its head</h1>
 
     <TresCanvas
       class="ro-arm-canvas"
@@ -34,7 +34,7 @@ useHead({
       render-mode="always"
       :tone-mapping-exposure="0.86"
     >
-      <RoArmScene @ready="isReady = true" @error="loadError = $event" />
+      <RobotScene @ready="isReady = true" @error="loadError = $event" />
     </TresCanvas>
 
     <div v-if="!isReady && !loadError" class="loading-state" role="status">Loading model</div>
@@ -42,20 +42,12 @@ useHead({
   </main>
 </template>
 
-<style>
+<style scoped>
 @font-face {
   font-family: 'Host Grotesk';
   font-style: normal;
   font-weight: 100 900;
   src: url('/fonts/host-grotesk.woff2') format('woff2');
-}
-
-html,
-body,
-#__nuxt {
-  min-height: 100%;
-  margin: 0;
-  background: #000;
 }
 
 body {
@@ -66,9 +58,8 @@ body {
   position: relative;
   width: 100vw;
   height: 100svh;
-  min-height: 36rem;
   overflow: hidden;
-  background: radial-gradient(circle at 62% 72%, rgb(122 141 111 / 9%), transparent 29rem), #000;
+  background: #f7f4ef;
 }
 
 .ro-arm-canvas {
@@ -132,8 +123,7 @@ body {
 
 @media (max-width: 899px) {
   .ro-arm-page {
-    min-height: 28rem;
-    background: radial-gradient(circle at 50% 74%, rgb(122 141 111 / 10%), transparent 22rem), #000;
+    background: #f7f4ef;
   }
 }
 
